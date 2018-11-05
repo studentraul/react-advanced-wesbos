@@ -1,0 +1,7 @@
+# ! means is required
+# @<something> means directives
+type User {
+  id: ID! @unique
+  name: String!
+  email: String!
+}
