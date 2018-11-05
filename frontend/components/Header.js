@@ -1,8 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import Router from "next/router";
+import NProgress from "nprogress";
 
 import Nav from "./Nav";
+
+/* Listening to Router Events */
+Router.onRouteChangeStart = () => {
+  NProgress.start();
+};
+
+Router.onRouteChangeComplete = () => {
+  NProgress.done();
+};
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -47,7 +58,9 @@ const Header = () => {
     <StyledHeader>
       <div className="bar">
         <Logo>
-          <Link href="/">Sick Fits</Link>
+          <Link href="/">
+            <a>Sick Fits</a>
+          </Link>
         </Logo>
         <Nav />
       </div>
