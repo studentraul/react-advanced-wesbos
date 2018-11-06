@@ -6,6 +6,7 @@ function createClient({ headers }) {
   return new ApolloClient({
     uri: process.env.NODE_ENV === 'development' ? endpoint : endpoint,
     request: operation => {
+      /* kind of express middleware */
       operation.setContext({
         fetchOptions: {
           credentials: 'include',
