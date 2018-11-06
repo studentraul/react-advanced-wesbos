@@ -13,6 +13,4 @@ type Item {
   image: String
   largeImage: String
   price: Float!
-  createAt: DateTime!
-  updatedAt: DateTime!
 }
