@@ -5,11 +5,6 @@ import gql from "graphql-tag";
 
 import Item from "./Item";
 
-const ItemsList = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-`;
-
 const ALL_ITEMS_LIST = gql`
   query ALL_ITEMS_LIST {
     items {
@@ -23,27 +18,41 @@ const ALL_ITEMS_LIST = gql`
   }
 `;
 
+const Center = styled.div`
+  text-align: center;
+`;
+
+const ItemsList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 60px;
+  max-width: ${props => props.theme.maxWidth};
+  margin: 0 auto;
+`;
+
 const Items = () => {
   return (
-    <Query query={ALL_ITEMS_LIST}>
-      {({ loading, data, error }) => {
-        if (loading) {
-          return <p>Loading...</p>;
-        }
+    <Center>
+      <h1>Items</h1>
+      <Query query={ALL_ITEMS_LIST}>
+        {({ loading, data, error }) => {
+          if (loading) {
+            return <p>Loading...</p>;
+          }
 
-        if (error) {
-          return <p>Error: {error}</p>;
-        }
-        console.log(data);
-        return (
-          <ItemsList>
-            {data.items.map(item => (
-              <Item key={item.id} title={item.title} />
-            ))}
-          </ItemsList>
-        );
-      }}
-    </Query>
+          if (error) {
+            return <p>Error: {error}</p>;
+          }
+          return (
+            <ItemsList>
+              {data.items.map(item => (
+                <Item key={item.id} {...item} />
+              ))}
+            </ItemsList>
+          );
+        }}
+      </Query>
+    </Center>
   );
 };
 export default Items;
